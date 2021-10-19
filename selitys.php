@@ -41,10 +41,11 @@
 
     
 <h2 class="kotitxt">Kootut selitykset</br>
-
+</br>
 <h3 class="kotitxt2">Aina ei heitto osu kohdalleen.</br>
 <h3 class="kotitxt3">Alla joukko selityksiä, joilla voit avata</br>
 <h3 class="kotitxt3">joukkuetovereillesi epäonnistuneen suorituksen taustoja.</br>
+</br>
 
 <?php
     include ("dbconnect_keila.php");
@@ -53,8 +54,28 @@
 <table class="selitys" border="2">
  
 
-  <?php
-  $hakusql = "SELECT * FROM selitys";  
+<?php
+
+$results_per_page = 6;  
+
+$hakusql = "SELECT * from selitys";  
+$tulokset = $yhteys->query($hakusql);
+if ($tulokset->num_rows > 0) {
+   $number_of_result = mysqli_num_rows($tulokset);
+}
+$number_of_page = ceil ($number_of_result / $results_per_page);  
+//echo "countti:" .($number_of_page); //sivujen lukumäärä
+
+//ongitaan esiin se sivu, jossa seikkaillaan 
+if (!isset ($_GET['page']) ) {  
+   $page = 1;  
+}  else {  
+   $page = $_GET['page'];  
+}  
+//määritellään aloituskohta sql LIMIT kyselyyn  
+$page_first_result = ($page-1) * $results_per_page;  
+
+  $hakusql = "SELECT * FROM selitys LIMIT " . $page_first_result . ',' . $results_per_page;
   $tulokset = $yhteys->query($hakusql);
 
   //näytetään tulosjoukko
@@ -71,8 +92,12 @@
 
 </table>
 
-
-
+<?php
+   //näytetään sivulinkki URLissa  
+   for($page = 1; $page<= $number_of_page; $page++) {  
+      echo '<a href = "selitys.php?page=' . $page . '">' . $page . ' </a>';  
+   } 
+?>
 
 <div class="footer">
   <p>Footerien footer &copy;</p>
