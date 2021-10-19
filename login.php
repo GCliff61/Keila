@@ -25,15 +25,13 @@
          <li><a href="home-log-out.php"><i class="fa fa-fw fa-home"></i>Koti</a></li>
          <li><a href="login.php">Kirjaudu sisään/rekisteröidy</a></li>
          <li class="services">
-           <a href="/">Services</a>
+           <a href="/">Palvelut</a>
            <!-- DROPDOWN MENU -->
            <ul class="dropdown">
-             <li><a href="/">Dropdown 1 </a></li>
-             <li><a href="/">Dropdown 2</a></li>
-             <li><a href="/">Dropdown 2</a></li>
-             <li><a href="/">Dropdown 3</a></li>
-             <li><a href="/">Dropdown 4</a></li>
-           </ul>
+             <li><a href="/">Keilahallihaku </a></li>
+             <li><a href="/">Näytä Pro Shopit</a></li>
+             <li><a href="selitys.php">Kootut selitykset</a></li>
+          </ul>
          </li>
          <li><a href="palaute.php">Anna palautetta</a></li>
          <li><a href="logout.php">Kirjaudu ulos</a></li>

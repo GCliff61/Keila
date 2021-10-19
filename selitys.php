@@ -40,10 +40,39 @@
    </nav>
 
     
-<h1 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br>
-</br>
-<h2 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br>
-<h2 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br>
+<h2 class="kotitxt">Kootut selitykset</br>
+
+<h3 class="kotitxt2">Aina ei heitto osu kohdalleen.</br>
+<h3 class="kotitxt3">Alla joukko selityksiä, joilla voit avata</br>
+<h3 class="kotitxt3">joukkuetovereillesi epäonnistuneen suorituksen taustoja.</br>
+
+<?php
+    include ("dbconnect_keila.php");
+?>
+
+<table class="selitys" border="2">
+ 
+
+  <?php
+  $hakusql = "SELECT * FROM selitys";  
+  $tulokset = $yhteys->query($hakusql);
+
+  //näytetään tulosjoukko
+  if ($tulokset->num_rows > 0) {
+   while($rivi = $tulokset->fetch_assoc()) {
+  ?>
+     <tr>
+        <td><?php echo $rivi["selitys"]; ?></td>
+     </tr>
+     <?php
+        }
+    }
+     ?>
+
+</table>
+
+
+
 
 <div class="footer">
   <p>Footerien footer &copy;</p>

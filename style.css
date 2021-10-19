@@ -17,7 +17,10 @@
    .kotitxt {text-align: center;}
    .kotitxt2 {text-align: center;}
    .kotitxt3 {text-align: center;}
-
+   .selitys {
+       margin-left: auto;
+       margin-right: auto;
+   }
    .footer {
     position: fixed;
     left: 0;
