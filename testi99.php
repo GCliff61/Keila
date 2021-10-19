@@ -21,6 +21,14 @@ echo "<ul>";
   echo "<li>".$jscript."</li>";
 echo "</ul>";
 
+if (strpos($_SERVER['HTTP_HOST'],"azurewebsites") !== false) {
+  $db_username_remote = 'azure';
+  $db_password_remote = '6#vWHD_$';
+  $db_server_remote = 'localhost:51861'; 
+  $db_site_remote = 'https://istok.azurewebsites.net';
+  echo "localhost:".$db_server_remote;
+}
+
 ?>
 
 
