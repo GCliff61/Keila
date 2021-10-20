@@ -42,7 +42,7 @@
     
 <h2 class="kotitxt">Kootut selitykset</br>
 </br>
-<h3 class="kotitxt2">Aina ei heitto osu kohdalleen.</br>
+<h3 class="kotitxt2">Aina ei heitto osu kohdilleen.</br>
 <h3 class="kotitxt3">Alla joukko selityksiä, joilla voit avata</br>
 <h3 class="kotitxt3">joukkuetovereillesi epäonnistuneen suorituksen taustoja.</br>
 </br>
@@ -51,11 +51,12 @@
     include ("dbconnect_keila.php");
 ?>
 
+
 <table class="selitys" border="2">
  
 
 <?php
-
+$titleErr = $erhe = "";
 $results_per_page = 6;  
 
 $hakusql = "SELECT * from selitys";  
@@ -98,6 +99,55 @@ $page_first_result = ($page-1) * $results_per_page;
       echo '<a href = "selitys.php?page=' . $page . '">' . $page . ' </a>';  
    } 
 ?>
+
+<?php
+    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit']))
+    {
+        if (empty($_POST["title"])) {
+            $titleErr = "Annathan myös selityksen";
+            $erhe = "1";
+         } else {
+            $title = test_input($_POST["title"]);
+         }
+         if ($erhe ==  "") {
+            $query = "INSERT INTO selitys (selitys) VALUES
+                 ('$title')";
+            //     echo 'query: '.$query;
+            $yhteys->query($query);
+            $lisatty=$yhteys->affected_rows;
+            //echo "<div>$lisatty</div>";
+         }
+    }
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+     }
+?>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+ 
+    <div class="row">
+        <div class="col-25">
+        <label for="title">Voit antaa myös oman selityksen</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="title" name="title" required placeholder="Selitys.."
+            oninvalid="this.setCustomValidity('Annathan myös selityksen')"
+            oninput="this.setCustomValidity('')"/>
+        </div>
+        <!-- <span class="error">* <?php echo $titleErr; ?></span> -->
+    </div>
+    <div class="row">
+
+        <input type="submit" name="submit" value="Tallenna selitys">
+
+    </div>
+
+   
+</form>
 
 <div class="footer">
   <p>Footerien footer &copy;</p>

@@ -18,6 +18,8 @@
    .kotitxt2 {text-align: center;}
    .kotitxt3 {text-align: center;}
    .selitys {
+       table-layout: fixed;
+       width: 50%;
        margin-left: auto;
        margin-right: auto;
    }
@@ -100,6 +102,48 @@ input[type=checkbox]{
  font-size: 24px;
  user-select: none;
 }
+.error {color: #FF0000;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 18px;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    width: 100%;
+    font-size: 18px;
+  }
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
 /* APPLYING MEDIA QUERIES */
 @media (max-width: 600px) {
 .menu { 
@@ -132,5 +176,9 @@ input[type=checkbox]:checked ~ .menu{
 }
 .dropdown li:hover {
  background-color: #4c9e9e;
+}
+.col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
 }
 }
