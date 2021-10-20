@@ -113,6 +113,24 @@ input[type=text], select, textarea {
   font-size: 18px;
 }
 
+input[type=email] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 18px;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 18px;
+}
+
 label {
   padding: 12px 12px 12px 0;
   display: inline-block;
@@ -143,7 +161,16 @@ label {
   input[type=submit]:hover {
     background-color: #45a049;
   }
-
+  .form-group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .container {
+    border-radius: 10px;
+  
+  }
+  
 /* APPLYING MEDIA QUERIES */
 @media (max-width: 600px) {
 .menu { 
@@ -181,4 +208,5 @@ input[type=checkbox]:checked ~ .menu{
     width: 100%;
     margin-top: 0;
 }
+
 }

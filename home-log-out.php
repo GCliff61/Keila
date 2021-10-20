@@ -22,8 +22,8 @@
        <!-- NAVIGATION MENUS -->
        <div class="menu">
          
-         <li><a href="home-log-out.php"><i class="fa fa-fw fa-home"></i>Koti</a></li>
-         <li><a href="login.php">Kirjaudu sisään/rekisteröidy</a></li>
+         <li><a href="home-log-out.php"><i class="fa fa-fw fa-home"></i>Koti/kirjaudu sisään</a></li>
+         <li><a href="signup.php">Rekisteröidy</a></li>
          <li class="services">
            <a href="/">Palvelut</a>
            <!-- DROPDOWN MENU -->
