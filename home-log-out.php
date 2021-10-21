@@ -40,10 +40,17 @@
    </nav>
 
     
-<h1 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br>
+<h2 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br>
 </br>
-<h2 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br>
-<h2 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br>
+<h3 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br>
+<h3 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br>
+
+<?php
+    include ("dbconnect_keila.php");
+?>
+
+ 
+
 
 <div class="footer">
   <p>Footerien footer &copy;</p>

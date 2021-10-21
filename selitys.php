@@ -1,3 +1,16 @@
+<?php
+if (!session_id()) session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    $_SESSION['next_page'] = $_SERVER['PHP_SELF'];
+   
+    $msg="Saavuit suojatulle sivulle. Sinut ohjataan kirjautumiseen.";
+     echo "<script type='text/javascript'>alert('$msg');</script>";
+        //header("location: home-log-out.php");
+        include("home-log-out.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
