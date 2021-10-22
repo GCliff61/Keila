@@ -52,10 +52,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </nav>
 
     
-<h2 class="kotitxt">Kootut selitykset</br></h2>
+<h2 class="kotitxt">Pro Shop - myymälät</br>
 </br>
-<h3 class="kotitxt2">Aina ei heitto osu kohdilleen.</br></h3>
-<h3 class="kotitxt3">Alla joukko selityksiä, joilla voit avata joukkuetovereillesi epäonnistuneen suorituksen taustoja.</br>
+<h3 class="kotitxt2">Myymälät sijaitsevat keilahallien yhteydessä.</br>
+
 </br>
 
 <?php
@@ -63,14 +63,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 ?>
 
 
-<table class="selitys" border="2">
+<table class="proshop" border="2">
  
 
 <?php
 $titleErr = $erhe = "";
-$results_per_page = 5;  
+$results_per_page = 3;  
 
-$hakusql = "SELECT * from selitys";  
+$hakusql = "SELECT *  from v_proshop";  
 $tulokset = $yhteys->query($hakusql);
 if ($tulokset->num_rows > 0) {
    $number_of_result = mysqli_num_rows($tulokset);
@@ -87,7 +87,7 @@ if (!isset ($_GET['page']) ) {
 //määritellään aloituskohta sql LIMIT kyselyyn  
 $page_first_result = ($page-1) * $results_per_page;  
 
-  $hakusql = "SELECT * FROM selitys LIMIT " . $page_first_result . ',' . $results_per_page;
+  $hakusql = "SELECT * from v_proshop LIMIT " . $page_first_result . ',' . $results_per_page;
   $tulokset = $yhteys->query($hakusql);
 
   //näytetään tulosjoukko
@@ -95,7 +95,11 @@ $page_first_result = ($page-1) * $results_per_page;
    while($rivi = $tulokset->fetch_assoc()) {
   ?>
      <tr>
-        <td><?php echo $rivi["selitys"]; ?></td>
+        <td><?php echo $rivi["nimi"]; ?></td>
+        <td><?php echo $rivi["palvelut"]; ?></td>
+        <td><?php echo $rivi["puhelinnumero"]; ?></td>
+        <td><?php echo $rivi["kontaktit"]; ?></td>
+        <td><?php echo $rivi["kunnan_nimi"]; ?></td>
      </tr>
      <?php
         }
@@ -107,57 +111,10 @@ $page_first_result = ($page-1) * $results_per_page;
 <?php
    //näytetään sivulinkki URLissa  
    for($page = 1; $page<= $number_of_page; $page++) {  
-      echo '<a href = "selitys.php?page=' . $page . '">' . $page . ' </a>';  
+      echo '<a href = "proshop.php?page=' . $page . '">' . $page . ' </a>';  
    } 
 ?>
 
-<?php
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit']))
-    {
-        if (empty($_POST["title"])) {
-            $titleErr = "Annathan myös selityksen";
-            $erhe = "1";
-         } else {
-            $title = test_input($_POST["title"]);
-         }
-         if ($erhe ==  "") {
-            $query = "INSERT INTO selitys (selitys) VALUES
-                 ('$title')";
-            //     echo 'query: '.$query;
-            $yhteys->query($query);
-            $lisatty=$yhteys->affected_rows;
-            //echo "<div>$lisatty</div>";
-         }
-    }
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-     }
-?>
-
-<div class="container"> 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
- 
-    <div class="form-group">
-        <div class="col-25">
-        <label for="title">Voit antaa myös oman selityksen</label>
-        </div>
-        <div class="col-75">
-            <input type="text" id="title" name="title" required placeholder="Selitys.."
-            oninvalid="this.setCustomValidity('Annathan myös selityksen')"
-            oninput="this.setCustomValidity('')"/>
-        </div>
-        <!-- <span class="error">* <?php echo $titleErr; ?></span> -->
-    </div>
-    <div class="form-group">
-        <input type="submit" name="submit" value="Tallenna selitys">
-    </div>
- 
-    </form> 
-</div>
 
 <div class="footer">
   <p>Footerien footer &copy;</p>

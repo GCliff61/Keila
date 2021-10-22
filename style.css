@@ -19,9 +19,19 @@
    .kotitxt3 {text-align: center;}
    .selitys {
        table-layout: fixed;
-       width: 50%;
+       width: 90%;
        margin-left: auto;
        margin-right: auto;
+   }
+    .proshop {
+        table-layout: fixed;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+   }
+   th, td {
+     text-align: left;
+     padding: 8px;
    }
    .footer {
     position: fixed;
@@ -140,12 +150,14 @@ label {
     float: left;
     width: 25%;
     margin-top: 6px;
+    margin-bottom: 6px;    
   }
   
   .col-75 {
     float: left;
     width: 75%;
     margin-top: 6px;
+    margin-bottom: 6px;  
   }
   input[type=submit] {
     background-color: #4CAF50;
@@ -157,6 +169,7 @@ label {
     float: right;
     width: 100%;
     font-size: 18px;
+    margin-top: 10px;
   }
   input[type=submit]:hover {
     background-color: #45a049;
