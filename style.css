@@ -29,6 +29,12 @@
         margin-left: auto;
         margin-right: auto;
    }
+   .khalli {
+    table-layout: auto;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
    th, td {
      text-align: left;
      padding: 8px;

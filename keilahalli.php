@@ -54,7 +54,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     
 <h2 class="kotitxt">Keilahallihaku kunnittain</br></h2>
 </br>
-<h3 class="kotitxt3">Valitse kunta:</br>
+<h3 class="kotitxt3">Valitse kunta:</br> </h3>
 
 
 <p hidden id="valittu_kunta"></p>
@@ -63,19 +63,24 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include ("dbconnect_keila.php");
 ?>
 
+<?php
+    $valittu = "20";
+?>
+
+
 <div class="container"> 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-<table class="proshop" border="2">
+<table class="khalli" border="2">
 
-    <label for="items">Valitse kunta:</label>
+    <!-- <label for="items">Valitse kunta:</label> -->
     <!-- <select onchange="ota_kategoria()" name="items" id="items"> -->
     <select name="items" id="items"> 
 
     <?php
         // Haetaan kunnat valintalaatikkoon
         $hakusql = "SELECT distinct k.kunnan_nimi, k.kuntanumero FROM kunta k
-        join halli h on k.kuntanumero = h.kuntanumero";
+        join halli h on k.kuntanumero = h.kuntanumero where h.kuntanumero > 0";
 
         $tulokset = $yhteys->query($hakusql);
         $i=0;
@@ -94,10 +99,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-       $valittu = "";
+
         if(isset($_POST['submit'])) {
         if(!empty($_POST['items'])) {
             $valittu = $_POST['items'];
+            if ($valittu == "" || $valittu == 0) {
+                $valittu = "20"; // Akaa
+            }
             //echo 'valittu:'.$valittu;
         } else {
             echo 'valitse kunta';
@@ -108,12 +116,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- sivutus -->
     <?php
+    
         $titleErr = $erhe = "";
      
-        $results_per_page = 4;  
- 
+        $results_per_page = 6;  
 
-        $hakusql = "SELECT *  from halli where kuntanumero = '$valittu'";  
+
+        $hakusql = "SELECT * FROM v_halli_proshop where kuntanumero = '$valittu' ";  
 
         //echo "valittu:".$valittu;
         //echo "hakusql: ".$hakusql;
@@ -133,7 +142,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         //määritellään aloituskohta sql LIMIT kyselyyn  
         $page_first_result = ($page-1) * $results_per_page;  
 
-        $hakusql = "SELECT * from halli where kuntanumero = '$valittu' LIMIT " . $page_first_result . ',' . $results_per_page;
+        $hakusql = "SELECT * FROM v_halli_proshop where kuntanumero = '$valittu' LIMIT " . $page_first_result . ',' . $results_per_page;
+        //echo "hakusql: ".$hakusql;
         $tulokset = $yhteys->query($hakusql);
 
         //näytetään tulosjoukko
@@ -144,19 +154,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <td><?php echo $rivi["nimi"]; ?></td>
                         <td><?php echo $rivi["puhelinnumero"]; ?></td>
                         <td><?php echo $rivi["email"]; ?></td>
+                        <td><?php echo $rivi["pnimi"]; ?></td>
                     </tr>
                 <?php
             }
         }
+
      ?>
 
 </table>
 
 <?php
+/*
    //näytetään sivulinkki URLissa  
    for($page = 1; $page<= $number_of_page; $page++) {  
       echo '<a href = "keilahalli.php?page=' . $page . '">' . $page . ' </a>';  
-   } 
+   }
+   */ 
 ?>
 
 
