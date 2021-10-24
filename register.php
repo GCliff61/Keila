@@ -90,8 +90,8 @@
                     // Query
                     $sql = "INSERT INTO users (firstname, lastname, email, mobilenumber, password, token, is_active,
                     date_time) VALUES ('{$firstname}', '{$lastname}', '{$email}', '{$mobilenumber}', '{$password_hash}', 
-                    '{$token}', '0', now())";
-                    
+                    '{$token}', '1', now())";
+//                                       '{$token}', '0', now())";
                     // Create mysql query
                     $sqlQuery = mysqli_query($yhteys, $sql);
                     
