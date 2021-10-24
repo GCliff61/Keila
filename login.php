@@ -31,6 +31,9 @@
     </li>
     <li><a href="palaute.php">Anna palautetta</a></li>
     <li><a href="logout.php">Kirjaudu ulos</a></li>
+    <?php if (isset($_SESSION['firstname'])) : ?>    
+      <li><a href="">Tervetuloa: <?php echo $_SESSION['firstname']; ?></a></li>
+    <?php endif ?>
   </div>
   </ul>
 </nav>

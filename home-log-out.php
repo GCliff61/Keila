@@ -44,10 +44,19 @@
 </nav>
 
     
-<h2 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br>
+<h2 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br> </h2>
 </br>
-<h3 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br>
-<h3 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br>
+<h3 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br></h3>
+<h3 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br></h3>
+</br>
+<picture>
+  <img src="keilafun1.jpg" alt="kuva" class="center" style="width:100px;height=150px; type=text/css">
+</picture>
+</br></br>
+<div>
+  <h3 class="kotitxt3">Etkö ole vielä jäsen? <p> <a href="signup.php">Rekisteröidy tästä</a></p></br></h3>
+  <h3 class="kotitxt3">Olet jo jäsen, siirry kirjautumiseen <p> <a href="login.php">tästä</a></p></br></h3>
+</div>
 
 <?php
 //echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';

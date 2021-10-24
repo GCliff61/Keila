@@ -54,6 +54,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     
 <h2 class="kotitxt">Keilahallihaku kunnittain</br></h2>
 </br>
+<h3 class="kotitxt3">Valitse kunta:</br>
+
 
 <p hidden id="valittu_kunta"></p>
 
@@ -61,78 +63,91 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include ("dbconnect_keila.php");
 ?>
 
+<div class="container"> 
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
 <table class="proshop" border="2">
+
+    <label for="items">Valitse kunta:</label>
+    <!-- <select onchange="ota_kategoria()" name="items" id="items"> -->
+    <select name="items" id="items"> 
+
+    <?php
+        // Haetaan kunnat valintalaatikkoon
+        $hakusql = "SELECT distinct k.kunnan_nimi, k.kuntanumero FROM kunta k
+        join halli h on k.kuntanumero = h.kuntanumero";
+
+        $tulokset = $yhteys->query($hakusql);
+        $i=0;
+        while($row = mysqli_fetch_array($tulokset)) {
+            ?>
+            <option value=<?php echo $row["kuntanumero"]; ?>><?php echo $row["kunnan_nimi"]; ?> </option>
+            <?php
+            $i++;
+        }
+    ?>
+
+    </select>
+
+    <div class="form-group">
+        <input type="submit" name="submit" value="Hae keilahallit">
+    </div>
+
+    <?php
+       $valittu = "";
+        if(isset($_POST['submit'])) {
+        if(!empty($_POST['items'])) {
+            $valittu = $_POST['items'];
+            //echo 'valittu:'.$valittu;
+        } else {
+            echo 'valitse kunta';
+        }
+
+    }
+    ?>
+
+    <!-- sivutus -->
+    <?php
+        $titleErr = $erhe = "";
+     
+        $results_per_page = 4;  
  
 
-<label for="items">Valitse kunta:</label>
-  <select onchange="ota_kategoria()" name="items" id="items"> 
+        $hakusql = "SELECT *  from halli where kuntanumero = '$valittu'";  
 
-<?php
-$valittu = '';
-
-
-// Haetaan kunnat valintalaatikkoon
-$hakusql = "SELECT kunnan_nimi, kuntanumero FROM kunta";
-
-$tulokset = $yhteys->query($hakusql);
-$i=0;
-while($row = mysqli_fetch_array($tulokset)) {
-   ?>
-      <option value=<?php echo $row["kuntanumero"]; ?>><?php echo $row["kunnan_nimi"]; ?> </option>
-   <?php
-   $i++;
-}
-?>
-
-</select>
-
-
-
-<!-- sivutus -->
-
-<?php
-$titleErr = $erhe = "";
-$results_per_page = 3;  
-if (isset($_POST["items"])) {
-    $valittu=$_POST["items"];
-}
-
-
-$hakusql = "SELECT *  from halli where kuntanumero = '$valittu'";  
-
-echo "valittu:".$valittu;
-echo "hakusql: ".$hakusql;
-$tulokset = $yhteys->query($hakusql);
-if ($tulokset->num_rows > 0) {
-   $number_of_result = mysqli_num_rows($tulokset);
-}
-$number_of_page = ceil ($number_of_result / $results_per_page);  
-//echo "countti:" .($number_of_page); //sivujen lukumäärä
-
-//ongitaan esiin se sivu, jossa seikkaillaan 
-if (!isset ($_GET['page']) ) {  
-   $page = 1;  
-}  else {  
-   $page = $_GET['page'];  
-}  
-//määritellään aloituskohta sql LIMIT kyselyyn  
-$page_first_result = ($page-1) * $results_per_page;  
-
-  $hakusql = "SELECT * from halli LIMIT " . $page_first_result . ',' . $results_per_page;
-  $tulokset = $yhteys->query($hakusql);
-
-  //näytetään tulosjoukko
-  if ($tulokset->num_rows > 0) {
-   while($rivi = $tulokset->fetch_assoc()) {
-  ?>
-     <tr>
-        <td><?php echo $rivi["nimi"]; ?></td>
-        <td><?php echo $rivi["puhelinnumero"]; ?></td>
-     </tr>
-     <?php
+        //echo "valittu:".$valittu;
+        //echo "hakusql: ".$hakusql;
+        $tulokset = $yhteys->query($hakusql);
+        if ($tulokset->num_rows > 0) {
+            $number_of_result = mysqli_num_rows($tulokset);
         }
-    }
+        $number_of_page = ceil ($number_of_result / $results_per_page);  
+        //echo "countti:" .($number_of_page); //sivujen lukumäärä
+
+        //ongitaan esiin se sivu, jossa seikkaillaan 
+        if (!isset ($_GET['page']) ) {  
+            $page = 1;  
+        }  else {  
+          $page = $_GET['page'];  
+        }  
+        //määritellään aloituskohta sql LIMIT kyselyyn  
+        $page_first_result = ($page-1) * $results_per_page;  
+
+        $hakusql = "SELECT * from halli where kuntanumero = '$valittu' LIMIT " . $page_first_result . ',' . $results_per_page;
+        $tulokset = $yhteys->query($hakusql);
+
+        //näytetään tulosjoukko
+        if ($tulokset->num_rows > 0) {
+            while($rivi = $tulokset->fetch_assoc()) {
+                ?>
+                    <tr>
+                        <td><?php echo $rivi["nimi"]; ?></td>
+                        <td><?php echo $rivi["puhelinnumero"]; ?></td>
+                        <td><?php echo $rivi["email"]; ?></td>
+                    </tr>
+                <?php
+            }
+        }
      ?>
 
 </table>
@@ -143,6 +158,16 @@ $page_first_result = ($page-1) * $results_per_page;
       echo '<a href = "keilahalli.php?page=' . $page . '">' . $page . ' </a>';  
    } 
 ?>
+
+
+</form> 
+
+
+
+</div>
+
+
+
 
 <script>
 function ota_kategoria() {

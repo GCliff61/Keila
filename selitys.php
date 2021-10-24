@@ -37,7 +37,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
       <a href="">Palvelut</a>
       <!-- DROPDOWN MENU -->
       <ul class="dropdown">
-        <li><a href="/">Keilahallihaku </a></li>
+        <li><a href="keilahalli.php">Keilahallihaku </a></li>
         <li><a href="proshop.php">Näytä Pro Shopit</a></li>
         <li><a href="selitys.php">Kootut selitykset</a></li>
       </ul>
