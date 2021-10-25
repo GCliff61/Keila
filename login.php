@@ -179,6 +179,19 @@
     </div>
 
     <div class="form-group">
+      <a href="">Unohditko käyttäjätunnuksen tai salasanan?</a>
+    </div>
+
+    <!--
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="remember_me">
+        <span>Muista minut</span>
+      </label>
+    </div>
+    -->
+
+    <div class="form-group">
       <input type="submit" name="login" value="Kirjaudu sisään">
     </div>
 <!--

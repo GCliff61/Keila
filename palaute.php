@@ -51,8 +51,8 @@
 
 <?php
     $titleErr = $erhe = $palauteteksti ="";
-    //echo 'requ: '.$_SERVER['REQUEST_METHOD'] ;
-    //echo 'subm: '.isset($_POST['submit']) ;
+    echo 'requ: '.$_SERVER['REQUEST_METHOD'] ;
+    echo 'subm: '.isset($_POST['submit']) ;
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit']))
     {
         if (empty($_POST["palauteteksti"])) {
