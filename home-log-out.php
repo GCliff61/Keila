@@ -44,7 +44,7 @@
 </nav>
 
     
-<h2 class="kotitxt">Tervetuloa Tuuri-keilaajien kotisivulle</br> </h2>
+<h2 class="kotitxt">Tervetuloa Tuuri-pelaajien kotisivulle</br> </h2>
 </br>
 <h3 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br></h3>
 <h3 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br></h3>
