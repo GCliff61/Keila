@@ -46,8 +46,7 @@
     
 <h2 class="kotitxt">Tervetuloa Tuuri-pelaajien kotisivulle</br> </h2>
 </br>
-<h3 class="kotitxt2">Paikka, josta löydät helposti keilahallit ja pro-shopit</br></h3>
-<h3 class="kotitxt3">vastuuhenkilöineen ja yhteystietoineen!</br></h3>
+<h3 class="kotitxt2">Paikka, jossa kerrotaan, miten teet järjestelmäveikkaamisesta helppoa ja entistäkin mielenkiintoisempaa!</br></h3>
 </br>
 <picture>
   <img src="keilafun1.jpg" alt="kuva" class="center" style="width:100px;height=150px; type=text/css">
