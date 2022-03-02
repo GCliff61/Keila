@@ -1,14 +1,5 @@
 <?php
 if (!session_id()) session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    $_SESSION['next_page'] = $_SERVER['PHP_SELF'];
-   
-    //$msg="Saavuit suojatulle sivulle. Sinut ohjataan kirjautumiseen.";
-    // echo "<script type='text/javascript'>alert('$msg');</script>";
-        //header("location: home-log-out.php");
-        include("login.php");
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -193,15 +184,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
           </thead>
 
           <tbody className = "body-normal">
+
+            <?php for ($i = 0; $i < 39; $i += 3) : // step 3 ?> 
             
-            <?php 
-              for ($i = 0; $i < 39; $i += 3) :  // step 3
-            ?>
               <tr>
                 <td><?php if (isset($harava[$i])) {echo $harava[$i];} ?></td>
                 <td><?php if (isset($harava[$i + 1])) {echo $harava[$i + 1];} ?></td>
                 <td><?php if (isset($harava[$i + 2])) {echo $harava[$i + 2];} ?></td>
               </tr>
+
             <?php endfor; ?>
 
           </tbody>
@@ -214,7 +205,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
       <div class="column"> 
 
-            <table style="margin-top:5px"; class="khalli" border="2">
+            <table style="margin-top:5px" class="khalli" border="2">
 
             <thead className = "thead-dark">
               <tr>
@@ -224,9 +215,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             <tbody className = "body-normal">
 
-              <?php               
-                for ($i = 0; $i < count($ottelu); $i++) :
-              ?>
+              <?php for ($i = 0; $i < count($ottelu); $i++) : ?>
 
               <tr>
                 <td><?php if (isset($ottelu[$i])) {echo $ottelu[$i];} ?></td>

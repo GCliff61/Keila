@@ -1,5 +1,6 @@
 :root {
   --thpohja: #cce;
+  --yletausta: #f4f4f4;
 }
 /* UTILITIES   */
 * {
@@ -16,7 +17,8 @@
     overflow: hidden;
    }
   a {
-    color: #34495e;
+    color: #062203;
+    font-weight: bold;
   }
   
   a {
@@ -126,6 +128,11 @@
   .syotetyt td {
     color: #000;
   }
+
+.syotetyt th {
+  color: #000;
+  font-size: 12px;
+}
   .f-c {
     width: 50%;
     float: left;
@@ -138,14 +145,14 @@
     float: left;
     padding: 20px;
     border: 1px solid rgb(194, 192, 192);
-    background-color: lightcoral;
+    background-color: var(--yletausta);
   }
   .f-c-45 {
     width: 45%;
     float: left;
     padding: 20px;
     border: 1px solid rgb(194, 192, 192);
-    background-color: lightcoral;
+    background-color: var(--yletausta);
   }
   .haravat {
     width: 90%;
@@ -161,7 +168,7 @@
     position: relative;
     top: 0;
     margin-top: 0;
-    width: 90%;
+    width: 95%;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -181,7 +188,7 @@
     margin-top: 0;
     width: 95%;
     height: 500px;
-    background-color: green;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
   }
@@ -323,26 +330,30 @@
     width: 600px;
 }
 
+/* tallenna-nappula kotinäytöllä */
 .button {
-  padding: 15px 25px;
-  font-size: 24px;
+  padding: 5px 5px;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
   outline: none;
-  color: #fff;
-  background-color: #04AA6D;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-  width: 20%;
+  color: black;
+  background-color: var(--thpohja);
+  border: solid;
+  border: 1px solid rgb(82, 81, 81);
+  border-radius: 8px;
+  box-shadow: 0 4px #999;
+  width: 120px;
+  height: 30px;
+  margin-top: 10px;
 }
 
 .button:hover {background-color: #3e8e41}
 
 .button:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  box-shadow: 0 3px #666;
+  transform: translateY(1px);
 }
 
 /* SWITCH */
@@ -366,10 +377,10 @@
   border-radius: 10px;
   margin-bottom: 10px;
 
-  box-shadow: -8px -8px 15px rgba(255,255,255,.7),
-              10px 10px 10px rgba(0,0,0, .3),
-              inset 8px 8px 15px rgba(255,255,255,.7),
-              inset 10px 10px 10px rgba(0,0,0, .3);
+  box-shadow: -4px -4px 15px rgba(255,255,255,.7),
+              5px 5px 10px rgba(0,0,0, .3),
+              inset 4px 4px 15px rgba(255,255,255,.7),
+              inset 5px 5px 10px rgba(0,0,0, .3);
             
   justify-content: space-between;
   align-items: center;
@@ -385,7 +396,7 @@
 }
 
 .switch-toggle {
-  height: 40px;
+  height: 20px;
 }
 
 .switch-toggle input[type="checkbox"] {
@@ -399,25 +410,25 @@
   position: relative;
   display: inline-block;
   width: 90px;
-  height: 40px;
+  height: 20px;
   border-radius: 20px;
   margin: 0;
   cursor: pointer;
-  box-shadow: inset -8px -8px 15px rgba(255,255,255,.6),
-              inset 10px 10px 10px rgba(0,0,0, .25);
+  box-shadow: inset -4px -4px 15px rgba(255,255,255,.6),
+              inset 5px 5px 10px rgba(0,0,0, .25);
   
 }
 
 .switch-toggle input[type="checkbox"] + label::before {
   position: absolute;
   content: 'OFF';
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  line-height: 25px;
+  line-height: 15px;
   top: 8px;
   left: 8px;
   width: 45px;
-  height: 25px;
+  height: 12px;
   border-radius: 20px;
   background-color: #d1dad3;
   box-shadow: -3px -3px 5px rgba(255,255,255,.5),
@@ -434,7 +445,9 @@
               3px 3px 5px #00b33c;
 }
 
-
+.tooltip-inner {
+  white-space: pre-wrap;
+}
 
    /* NAVBAR STYLING STARTS */
 .navbar {
@@ -610,7 +623,7 @@ label {
     padding-left: .5em;
     padding-right: .5em;
     border: 1px solid #a2a2a2;
-    background-color: #cdf009;
+    background-color: #f4f4f4;
     border-radius: 5px;
     height: 300px;
     width: 50%;
@@ -638,7 +651,7 @@ label {
     padding-left: .5em;
     padding-right: .5em;
     border: 1px solid #a2a2a2;
-    background-color: #6a7883;
+    background-color: #f4f4f4;;
     border-radius: 5px;
     height: 300px;
     width: 40%;
@@ -698,15 +711,15 @@ label {
     display: none;
 }
   .star-rating {
-    margin: 50px auto;
+    margin: 20px auto;
     display: table;
-    width: 350px;
+    width: 500px;
 }
 .star-rating label {
     padding: 10px;
     float: right;
     font-size: 44px;
-    color: #eee;
+    color: var(--thpohja);
 }
 .star-rating input:not(:checked) ~ label:hover,
 .star-rating input:not(:checked) ~ label:hover ~ label {
@@ -718,7 +731,7 @@ label {
 .star-rating form .rating-reaction:before {
     width: 100%;
     float: left;
-    color: #ffc107;
+    color: #4caf50;
 }
 .star-rating #rating-1:checked ~ form .rating-reaction:before {
     content: "Aika kehno";
@@ -750,19 +763,26 @@ label {
 .star-rating form .submit-rating {
     border: none;
     outline: none;
-    background: #795548;
-    color: #ffc107;
+    background-color: var(--thpohja);
+    color: black;
     font-size: 18px;
-    border-radius: 4px;
+    border: solid;
+    border: 1px solid rgb(82, 81, 81);
+    border-radius: 8px;
+    box-shadow: 0 4px #999;
     padding: 5px 15px;
     cursor: pointer;
     float: right;
 }
 form .submit-rating:hover {
-    background-color: rgb(26, 21, 21);
+  background-color: #636463;
 }
 
-
+form .submit-rating:active {
+  background-color: #3e8e41;
+  box-shadow: 0 3px #666;
+  transform: translateY(1px);
+}
 
 /* APPLYING MEDIA QUERIES */
 

@@ -71,11 +71,6 @@
             $response = json_decode($get_data, true);
             $response2 = json_decode($get_data2, true);
 
-            // pelatut eurot - trailing zeroes
-            // echo nl2br ("Vaihto ja peliprosentit: \n");
-            echo  ("Vaihto ja peliprosentit:   ");
-            echo number_format($response["exchange"]/100, 2, "."," ");
-            echo "€ / ";
 
             // timestamp on Unix epoch muotoa eli sekunteja hetkestä 1.1.1970 00:00:00 lähtien
             $timestamp = $response["timestamp"];
@@ -84,10 +79,16 @@
             $dt->setTimestamp(substr($timestamp, 0, 10));
             $dt->setTimezone(new DateTimeZone($timezone));
             $datetime = $dt->format('Y-m-d H:i:s');
-            echo $datetime;
+            
             $week = $dt->format("W");
-            echo nl2br ("\n Viikko: ");
-            echo ltrim($week, '0');
+            //echo nl2br ("\n Viikko: ");
+            $viik = ltrim($week, '0');
+            echo "<b>Viikko $viik</b>";
+
+            echo  (", vaihto ja peliprosentit:   ");
+            echo number_format($response["exchange"]/100, 2, "."," "); // vaihto, poistetaan lopusta yilmääräiset nollat
+            echo "€ / ";
+            echo $datetime;
 
 
             // kerätään kaikki ottelut ohjelman sisäiseen taulukkoon
@@ -112,23 +113,23 @@
             // johdetaan perusrivi peliprosenteista
             // input muuttuu 7. kohteen jälkeen minivakion takia
             $johdettu = array(0);
-            $jraja = 45;
+            $xraja = 45; // prosenttiraja "x" -merkille
 
             $j = 0;
             $k = 0;
             for ($i = 4; $i <= 76; $i += 12) {
               $johdettu[$k]="x";
               $j = $i + 8;
-              if ( round($result["values"][$i] / 100) >= $jraja) { $johdettu[$k]="1"; };
-              if ( round($result["values"][$j] / 100) >= $jraja) { $johdettu[$k]="2"; }; 
+              if ( round($result["values"][$i] / 100) >= $xraja) { $johdettu[$k]="1"; };
+              if ( round($result["values"][$j] / 100) >= $xraja) { $johdettu[$k]="2"; }; 
               $k++ ;
             }
             // input muuttuu
             for ($i = 88; $i <= 133; $i += 9) {
               $johdettu[$k]="x";
               $j = $i + 6;
-              if ( round($result["values"][$i] / 100) >= $jraja) { $johdettu[$k]="1"; };
-              if ( round($result["values"][$j] / 100) >= $jraja) { $johdettu[$k]="2"; }; 
+              if ( round($result["values"][$i] / 100) >= $xraja) { $johdettu[$k]="1"; };
+              if ( round($result["values"][$j] / 100) >= $xraja) { $johdettu[$k]="2"; }; 
               $k++ ;
             }
 
@@ -137,11 +138,11 @@
         <!-- täytetään peliprosentti -taulukko -->
         <thead className = "thead-dark">
         <tr>
-          <th> </th>
-          <th>1</th>
-          <th>X</th>
-          <th>2</th>
-          <th style="text-align:right">%:sta johdettu perusrivi</th>
+          <th style="font-size: 14px"> </th>
+          <th style="font-size: 14px">1</th>
+          <th style="font-size: 14px">X</th>
+          <th style="font-size: 14px">2</th>
+          <th style="text-align:right; font-size: 14px">%:sta johdettu perusrivi</th>
         </tr>
         </thead>
         <tbody className = "body-normal">
@@ -210,7 +211,6 @@
             <option value="pt3_9_1_12">Paras tulos -3, 9 + 1,   12 riviä</option>
             <option value="pt3_6_3_12">Paras tulos -3, 6 + 3,   12 riviä</option>
           </select><br>
-
         </div>
     
            <p><input type="text" name="vaihdellut" id="vaihdellut" hidden></p> 
@@ -223,15 +223,18 @@
             <p id="piilo_chkxxx" hidden></p>
             <p id="piilo_chk1111" hidden></p>
             <p id="piilo_chk222" hidden></p>
+            <p id="piilo_chk137" hidden></p>
+            <p id="piilo_chkpr7" hidden></p>
+            <p id="piilo_chkero5" hidden></p>
 
-            <p><input class="inner" type="button" id="btnTest" name="btnTest" value="Tallenna" onclick="konvertoi_ruudukko()"  style="width: 120px" /></p>
+            <p><input class="button" type="button" id="btnTest" name="btnTest" value="Tallenna" onclick="konvertoi_ruudukko()"  style="width: 120px" /></p>
             <!-- type pitää olla button, submit ei toimi -->
 
             <p id="infov"></p>
             <p id="infoo"></p>
             <p id="infot"></p>
 
-            <h5 class="kotitxt3">Tulosten tarkasteluun <p> <a href="jossittele.php">tästä</a></p></br></h5>
+            <h5 class="kotitxt3">Tulosten tarkasteluun <span> <a href="jossittele.php">tästä</a></span></br></h5>
     </form>
     
  
@@ -242,7 +245,7 @@
     <aside>
 
       <div className = "d-flex my-4"> 
-        <?php echo "Suodattimet:"; ?> 
+        <?php //echo "Suodattimet:"; ?> 
         <?php
           $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
           $components = parse_url($url);
@@ -289,9 +292,9 @@
           }
         ?>
 
-        <!-- <form class="formiAside" action="" method="post"> -->
- <!--       <form class="formi2" name="formi2" id="formi2" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> -->
-
+        <!-- "Suodattimet" otsikon tooltipin sisällöksi selvennökset on/off nappien kuvioista -->
+           
+          <span title="1-1-1-1  enintään neljä peräkkäistä ykköstä &#013;X-X-X    enintään kolme peräkkäistä ristiä  &#013;2-2-2     enintään kolme peräkkäistä kakkosta  &#013;1: 3->7  ykkösiä vähintään kolme, enintään seitsemän &#013;%: ->7   enintään seitsemän samaa merkkiä kuin perusrivissä &#013;ero 5->  valittujen rivien on erottava toisistaan vähintään viisi merkkiä">Suodattimet</span>
           <div class="row">
           <div class="column2">
           
@@ -303,7 +306,7 @@
                   <span>1-1-1-1</span>
                 </div>
                 <div class="switch-toggle">
-                  <input type="checkbox" class="chk_1111" id="chk_1111" name="chk_1111"  <?php echo (isset($_POST['chk_1111']) ? 'checked' : '') ?> > </input>
+                  <input title="enintään neljä peräkkäistä ykköstä" type="checkbox" class="chk_1111" id="chk_1111" name="chk_1111"  <?php echo (isset($_POST['chk_1111']) ? 'checked' : '') ?> > </input>
                     <label for="chk_1111"></label>
                 </div>
             </div>
@@ -329,6 +332,37 @@
                 <label for="chk_222"></label>
               </div>
              </div>
+             
+             <!-- ykkösmerkkien määrä 3:n ja 7:n välillä -->
+            <div class="switch-holder">
+              <div class="switch-label">
+                <span>1: 3->7</span>
+              </div>
+              <div class="switch-toggle">
+                <input type="checkbox" class="chk_137" id="chk_137" name="chk_137"  <?php echo (isset($_POST['chk_137']) ? 'checked' : '') ?> > </input>
+                <label for="chk_137"></label>
+              </div>
+             </div>
+
+            <div class="switch-holder">
+              <div class="switch-label">
+                <span>%: ->7</span>
+              </div>
+              <div class="switch-toggle">
+                <input type="checkbox" class="chk_pr7" id="chk_pr7" name="chk_pr7"  <?php echo (isset($_POST['chk_pr7']) ? 'checked' : '') ?> > </input>
+                <label for="chk_pr7"></label>
+              </div>
+             </div>
+
+            <div class="switch-holder">
+              <div class="switch-label">
+                <span>ero 5-></span>
+              </div>
+              <div class="switch-toggle">
+                <input type="checkbox" class="chk_ero5" id="chk_ero5" name="chk_ero5"  <?php echo (isset($_POST['chk_ero5']) ? 'checked' : '') ?> > </input>
+                <label for="chk_ero5"></label>
+              </div>
+             </div>
 
            </div>
 
@@ -351,7 +385,7 @@
 
           <thead className = "thead-dark">
             <tr>
-              <th> <?php echo "<p>Rivejä " . count($otteluA) . "</p>"; ?> </th>
+              <th style="font-size: 14px"> <?php echo "<p>Rivejä " . count($otteluA) . "</p>"; ?> </th>
             </tr>
           </thead>
 
@@ -426,6 +460,7 @@ function callAPI($method, $url, $data){
 
 
 </body>
+
 
 <script>
     var aputaulu = [];  // tieto siitä, onko varma, ositt. tai täysin vaihdeltu (v,o,t)
@@ -544,44 +579,83 @@ function callAPI($method, $url, $data){
     }
 </script>
 
-<!-- checkboxit -->
+<!-- suodatin checkboxit -->
 <script>
 
-var checkbox = document.querySelector("input[name=chk_xxx]");
+  var checkbox = document.querySelector("input[name=chk_xxx]");
 
-checkbox.addEventListener('change', function() {
-  if (this.checked) {
-    piilo_chkxxx.innerHTML = "1";
-  } else {
-    piilo_chkxxx.innerHTML = "";
-  }
-});
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chkxxx.innerHTML = "1";
+    } else {
+      piilo_chkxxx.innerHTML = "";
+    }
+  });
 </script>
 
 <script>
 
-var checkbox = document.querySelector("input[name=chk_222]");
+  var checkbox = document.querySelector("input[name=chk_222]");
 
-checkbox.addEventListener('change', function() {
-  if (this.checked) {
-    piilo_chk222.innerHTML = "1";
-  } else {
-    piilo_chk222.innerHTML = "";
-  }
-});
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chk222.innerHTML = "1";
+    } else {
+      piilo_chk222.innerHTML = "";
+    }
+  });
 </script>
 
 <script>
 
-var checkbox = document.querySelector("input[name=chk_1111]");
+  var checkbox = document.querySelector("input[name=chk_1111]");
 
-checkbox.addEventListener('change', function() {
-  if (this.checked) {
-    piilo_chk1111.innerHTML = "1";
-  } else {
-    piilo_chk1111.innerHTML = "";
-  }
-});
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chk1111.innerHTML = "1";
+    } else {
+      piilo_chk1111.innerHTML = "";
+    }
+  });
+</script>
+
+<script>
+
+  var checkbox = document.querySelector("input[name=chk_137]");
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chk137.innerHTML = "1";
+    } else {
+      piilo_chk137.innerHTML = "";
+    }
+  });
+</script>
+
+<script>
+
+  var checkbox = document.querySelector("input[name=chk_pr7]");
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chkpr7.innerHTML = "1";
+    } else {
+      piilo_chkpr7.innerHTML = "";
+    }
+  });
+</script>
+
+<script>
+
+  var checkbox = document.querySelector("input[name=chk_ero5]");
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      piilo_chkero5.innerHTML = "1";
+    } else {
+      piilo_chkero5.innerHTML = "";
+    }
+  });
 </script>
 
 <!--  haravasysteemin valinta  
@@ -845,6 +919,10 @@ console.log(haraHaettu);
      taulJSON = [];           // alkuperäiset tiedot
      taulJSONvali = [];       // taulukko väliaikaisia tietoja varten
      taulJSONvali2 = [];      // taulukko väliaikaisia tietoja varten
+     taulJSONvali3 = [];      // taulukko väliaikaisia tietoja varten
+     taulJSONvali4 = [];      // taulukko väliaikaisia tietoja varten
+     taulJSONvali5 = [];      // taulukko väliaikaisia tietoja varten
+     taulJSONapu = [];        // taulukko väliaikaisia tietoja varten
      taulJSONlopulliset = []; // lopullinen tulosjoukko
   function konvertoi_ruudukko() {
 
@@ -981,8 +1059,8 @@ console.log(haraHaettu);
     // lähdetään liikkeelle edellisen suodattimen tulosjoukosta
 
     chkxxx = document.getElementById('piilo_chkxxx').innerHTML;
-    console.log ("suodatinxxx:", chkxxx);
-    console.log ("vali: ", taulJSONvali);
+    //console.log ("suodatinxxx:", chkxxx);
+    //console.log ("vali: ", taulJSONvali);
     ris = 0;
     pris = 0;
     k = 0; // laskuri, jolla hoidetaan lopullisten määrä (ts. estetään tyhjät rivit)
@@ -1006,12 +1084,13 @@ console.log(haraHaettu);
         }
 
     }
+
     // suodatin 222
     // lähdetään liikkeelle edellisen suodattimen tulosjoukosta
 
     chk222 = document.getElementById('piilo_chk222').innerHTML;
-    console.log ("suodatin222:", chk222);
-    console.log ("vali2: ", taulJSONvali2);
+    //console.log ("suodatin222:", chk222);
+    //console.log ("vali2: ", taulJSONvali2);
     kak = 0;
     pkak = 0;
     k = 0; // laskuri, jolla hoidetaan lopullisten määrä (ts. estetään tyhjät rivit)
@@ -1030,13 +1109,77 @@ console.log(haraHaettu);
             }
         }
         if ( (chk222 == "") || (chk222 == "1" && pkak <= 3) ) {
-          taulJSONlopulliset[k] = taulJSONvali2[i];
+          taulJSONvali3[k] = taulJSONvali2[i];
           k++;
         }
 
     }
 
+    // suodatin 1: 3->7
+    // lähdetään liikkeelle edellisen suodattimen tulosjoukosta
 
+    chk137 = document.getElementById('piilo_chk137').innerHTML;
+    //console.log ("suodatin137:", chk137);
+    //console.log ("vali3: ", taulJSONvali3);
+    ykk = 0;
+    k = 0; // laskuri, jolla hoidetaan lopullisten määrä (ts. estetään tyhjät rivit)
+    for (i = 0; i < taulJSONvali3.length; i++) {
+        ykk = 0;
+        alkio = Array.from(taulJSONvali3[i]); // merkkijono taulukoksi
+        for (j=0; j < 13; j++) {
+            if (alkio[j] == "1") {
+              ykk = ykk + 1;
+            }
+        }
+        if ( (chk137 == "") || (chk137 == "1" && (ykk >= 3 && ykk <= 7)) ) {
+          taulJSONlopulliset[k] = taulJSONvali3[i];
+          k++;
+        }
+
+    }
+
+    // suodatin ero 5->
+    // lähdetään liikkeelle edellisen suodattimen tulosjoukosta
+/*
+    chkero5 = document.getElementById('piilo_chkero5').innerHTML;
+    console.log ("suodatinero5:", chkero5);
+    console.log ("vali4: ", taulJSONvali4);
+    kpl = 0; 
+    apuind = 1;
+    taulJSONapu[0] = taulJSONvali4[0];
+    console.log ("apuli: ", taulJSONapu, taulJSONapu.length);
+    k = 0; // laskuri, jolla hoidetaan lopullisten määrä (ts. estetään tyhjät rivit)
+    for (i = 1; i < taulJSONvali4.length; i++) {
+
+        alkio = Array.from(taulJSONvali4[i]); // merkkijono taulukoksi
+        for (ii = 0; ii < taulJSONapu.length; ii++) {
+          console.log ("vali4, apu", i, ii, taulJSONvali4[i], taulJSONapu[ii]);
+          perusalkio = Array.from(taulJSONapu[ii]); 
+          kpl = 0;
+          for (j=0; j < 13; j++) {
+              if (alkio[j] != perusalkio[j] ) {
+                kpl = kpl + 1;
+              }
+          }
+          console.log ("kappeli", kpl);
+          if (kpl >= 5) {
+            taulJSONapu[apuind] = taulJSONvali4[ii];
+            apuind++;
+          }
+        } 
+    }
+          
+    if ( chkero5 == "") {
+      for (k=0; k < taulJSONvali4.length; k++) {
+        taulJSONlopulliset[k] = taulJSONvali4[k];
+      }
+    }
+    if ( chkero5 == "1") {
+      for (k=0; k < taulJSONapu.length; k++) {
+        taulJSONlopulliset[k] = taulJSONapu[k];
+      }
+    }
+*/
     //
     console.log ("lopulliset", taulJSONlopulliset);
     //console.log (taulJSON.length);

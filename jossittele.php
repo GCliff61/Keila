@@ -135,7 +135,7 @@
 
 <thead className = "thead-dark">
   <tr>
-    <th>Pelatut rivit</th>
+    <th style="font-size: 14px">Pelatut rivit</th>
   </tr>
 </thead>
 <tbody className = "body-normal">
@@ -146,7 +146,7 @@
 ?>
 
   <tr>
-    <td><?php if (isset($ottelu[$i])) {echo $otteluAA[$i];} ?></td>
+    <td style="font-size: 14px"><?php if (isset($ottelu[$i])) {echo $otteluAA[$i];} ?></td>
   </tr>
 
 <?php endfor; ?>
@@ -212,9 +212,9 @@
     for ($i = 0; $i < 39; $i += 3) :  // step 3
   ?>
   <tr>
-    <td><?php if (isset($toteutuneet[$i])) {echo $toteutuneet[$i];} ?></td>
-    <td><?php if (isset($toteutuneet[$i + 1])) {echo $toteutuneet[$i + 1];} ?></td>
-    <td><?php if (isset($toteutuneet[$i + 2])) {echo $toteutuneet[$i + 2];} ?></td>
+    <td style="font-size: 14px"><?php if (isset($toteutuneet[$i])) {echo $toteutuneet[$i];} ?></td>
+    <td style="font-size: 14px"><?php if (isset($toteutuneet[$i + 1])) {echo $toteutuneet[$i + 1];} ?></td>
+    <td style="font-size: 14px"><?php if (isset($toteutuneet[$i + 2])) {echo $toteutuneet[$i + 2];} ?></td>
   </tr>
   <?php endfor; ?>
 </tbody>
@@ -281,67 +281,19 @@
 
       <thead className = "thead-dark">
         <tr>
-            <th></th>
-            <th></th>
+            <th style="font-size: 14px">Tulos</th>
+            <th style="font-size: 14px">Kpl</th>
         </tr>
       </thead>
+
       <tbody className = "body-normal">
+
+        <?php for ($i = 13; $i >= 0; $i--) :  // step -1 ?>
          <tr>
-            <td><?php if (isset($tottelu[13])) {echo $tottelu[13];} ?></td>
-            <td><?php if (isset($oikein[13])) {echo $oikein[13];} ?></td>
+            <td><?php if (isset($tottelu[$i])) {echo $tottelu[$i];} ?></td>
+            <td><?php if (isset($oikein[$i])) {echo $oikein[$i];} ?></td>
         </tr>
-        <tr>
-            <td><?php if (isset($tottelu[12])) {echo $tottelu[12];} ?></td>
-            <td><?php if (isset($oikein[12])) {echo $oikein[12];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[11])) {echo $tottelu[11];} ?></td>
-            <td><?php if (isset($oikein[11])) {echo $oikein[11];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[10])) {echo $tottelu[10];} ?></td>
-            <td><?php if (isset($oikein[10])) {echo $oikein[10];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[9])) {echo $tottelu[9];} ?></td>
-            <td><?php if (isset($oikein[9])) {echo $oikein[9];} ?></td>
-        </tr>
-          <tr>
-            <td><?php if (isset($tottelu[8])) {echo $tottelu[8];} ?></td>
-            <td><?php if (isset($oikein[8])) {echo $oikein[8];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[7])) {echo $tottelu[7];} ?></td>
-            <td><?php if (isset($oikein[7])) {echo $oikein[7];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[6])) {echo $tottelu[6];} ?></td>
-            <td><?php if (isset($oikein[6])) {echo $oikein[6];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[5])) {echo $tottelu[5];} ?></td>
-            <td><?php if (isset($oikein[5])) {echo $oikein[5];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[4])) {echo $tottelu[4];} ?></td>
-            <td><?php if (isset($oikein[4])) {echo $oikein[4];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[3])) {echo $tottelu[3];} ?></td>
-            <td><?php if (isset($oikein[3])) {echo $oikein[3];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[2])) {echo $tottelu[2];} ?></td>
-            <td><?php if (isset($oikein[2])) {echo $oikein[2];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[1])) {echo $tottelu[1];} ?></td>
-            <td><?php if (isset($oikein[1])) {echo $oikein[1];} ?></td>
-        </tr>
-        <tr>
-            <td><?php if (isset($tottelu[0])) {echo $tottelu[0];} ?></td>
-            <td><?php if (isset($oikein[0])) {echo $oikein[0];} ?></td>
-        </tr>
+        <?php endfor; ?>
 
       </tbody>
       </table>
@@ -350,7 +302,7 @@
    </div>
 
    <div class="f-c-35">
-   <p>xxx</p>
+   <p>.</p>
       <div className = "d-flex my-4"> 
       <div>
 
