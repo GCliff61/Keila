@@ -25,10 +25,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <?php include 'navityylikas.php';?>
     <?php include ("dbconnect_keila.php"); ?>
 
-    <!-- Perusrakenne   -->
-    <!-- header         -->
-    <!-- section  aside -->
-
     <div class="divheaderi">
       <section>
  
@@ -40,8 +36,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <?php
           $titleErr = $erhe = $palauteteksti ="";
-          //echo 'requ: '.$_SERVER['REQUEST_METHOD'] ;
-          //echo 'subm: '.isset($_POST['submit']) ;
           if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit'])) {
             if (empty($_POST["palauteteksti"])) {
               //$titleErr = "Annathan myös selityksen";
@@ -97,42 +91,41 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     </section>
 
-<aside>
-<p>.</p>
-    <div className = "d-flex my-4">
-    <div class="f-c-35">
+    <aside>
+    <p>.</p>
+        <div className = "d-flex my-4">
+        <div class="f-c-35">
 
-      <div>
-         <picture>
-            <img src="oldman.jpg" alt="kuva" class="center" style="width:400px;height=600px; type=text/css">
-         </picture>
-      </div>
+          <div>
+            <picture>
+                <img src="oldman.jpg" alt="kuva" class="center" style="width:400px;height=600px; type=text/css">
+            </picture>
+          </div>
 
-      </div>
-   </div>  
- </aside>
+          </div>
+      </div>  
+    </aside>
 
-</div>
-</aside>
-</div>
-    <script>
-      const btn = document.querySelector(".submit-rating");
-      const thanksmsg = document.querySelector(".thanks-msg");
-      const starRating = document.querySelector(".star-input");
+    </div>
+    </aside>
 
-      // Success msg show/hide
-      btn.onclick = () => {
-        var ratev = document.querySelector("input[name=rating]:checked").value;
-        //ratev = 1;
-        //alert(ratev);
-        starRating.style.display = "none";
-        thanksmsg.style.display = "table";
-         return false;
-      };
-    </script>
+  </div>
 
+<script>
+  const btn = document.querySelector(".submit-rating");
+  const thanksmsg = document.querySelector(".thanks-msg");
+  const starRating = document.querySelector(".star-input");
 
-
+  // Success msg show/hide
+  btn.onclick = () => {
+    var ratev = document.querySelector("input[name=rating]:checked").value;
+    //ratev = 1;
+    //alert(ratev);
+    starRating.style.display = "none";
+    thanksmsg.style.display = "table";
+      return false;
+  };
+</script>
 
 </body>
 </html>
