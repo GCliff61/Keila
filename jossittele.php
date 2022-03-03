@@ -82,9 +82,10 @@
                     $valittu = $_POST['pelilista'];
                     echo "pelilista:". $_POST['pelilista'];
                     echo "pelilista val:". $valittu;
-                    if ($valittu == "" || $valittu == 0) {
-                        $valittu = "20"; // Akaa
-                    }
+
+                    //if ($valittu == "" || $valittu == 0) {
+                    //    $valittu = "20"; // Akaa
+                    //}
                    // echo 'valittu:'.$valittu;
                 } else {
                     echo 'Valitse peli';
