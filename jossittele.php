@@ -80,8 +80,8 @@
               if(isset($_POST['submit'])) {
                 if(!empty($_POST['pelilista'])) {
                     $valittu = $_POST['pelilista'];
-                    echo "pelilista:". $_POST['pelilista'];
-                    echo "pelilista val:". $valittu;
+                    //echo "pelilista:". $_POST['pelilista'];
+                    //echo "pelilista val:". $valittu;
 
                     //if ($valittu == "" || $valittu == 0) {
                     //    $valittu = "20"; // Akaa
