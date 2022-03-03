@@ -22,7 +22,6 @@
   <?php include 'navityylikas.php'; ?>
   <?php include ("dbconnect_keila.php"); ?>
 
-
   <!-- Perusrakenne   -->
   <!-- header         -->
   <!-- section  aside -->
@@ -1132,7 +1131,35 @@ console.log(haraHaettu);
             }
         }
         if ( (chk137 == "") || (chk137 == "1" && (ykk >= 3 && ykk <= 7)) ) {
-          taulJSONlopulliset[k] = taulJSONvali3[i];
+          //taulJSONlopulliset[k] = taulJSONvali3[i];
+          taulJSONvali4[k] = taulJSONvali3[i];
+          k++;
+        }
+
+    }
+
+    // suodatin %: ->7
+    // lähdetään liikkeelle edellisen suodattimen tulosjoukosta
+
+    chkpr7 = document.getElementById('piilo_chkpr7').innerHTML;
+    console.log ("suodatinpr7:", chkpr7);
+    // muutetaan php-taulukko js-taulukoksi
+    var johde = <?php echo '["' . implode('", "', $johdettu) . '"]' ?>;
+    console.log ("johto:", johde );
+    //console.log ("vali4: ", taulJSONvali4);
+
+    kpl = 0;
+    k = 0; // laskuri, jolla hoidetaan lopullisten määrä (ts. estetään tyhjät rivit)
+    for (i = 0; i < taulJSONvali4.length; i++) {
+        kpl = 0;
+        alkio = Array.from(taulJSONvali4[i]); // merkkijono taulukoksi
+        for (j=0; j < 13; j++) {
+            if (alkio[j] == johde[j]) {
+              kpl = kpl + 1;
+            }
+        }
+        if ( (chkpr7 == "") || (chkpr7 == "1" &&  kpl <= 7) ) {
+          taulJSONlopulliset[k] = taulJSONvali4[i];
           k++;
         }
 

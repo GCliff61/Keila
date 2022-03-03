@@ -118,6 +118,9 @@
 
 ?>
 
+<div class="divheaderi">
+      <section>
+
 <div class="container">
   <form action="" method="post">
     <h2 class="kotitxt">Sisäänkirjautuminen</h2>
@@ -175,11 +178,8 @@
   </form>
 </div>
 
-<!--
-<div class="footer">
-  <p>Footerien footer &copy;</p>
+</section>
 </div>
--->
 
 </body>
 </html>

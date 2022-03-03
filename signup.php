@@ -14,6 +14,9 @@
 <body>
     <?php include 'navityylikas.php'; ?>
 
+    <div class="divheaderi">
+      <section>
+
 <div class="container">
     <form action="" method="post">
         <h2 class="kotitxt">Rekisteröityminen</h2>
@@ -100,11 +103,9 @@
 
 </div>
 
- <!--   
-<div class="footer">
-  <p>Footerien footer &copy;</p>
 </div>
--->
+</section>
+
 </body>
 
 </html>
