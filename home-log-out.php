@@ -18,13 +18,10 @@
 
 <body>
   
-  <?php include 'pura.php';?>
+  <?php include 'pura.php';?> <!-- sisältää printValues -funktion, jolla puretaan taulukoita -->
   <?php include 'navityylikas.php'; ?>
-  <?php include ("dbconnect_keila.php"); ?>
+  <?php include 'dbconnect_keila.php'; ?>
 
-  <!-- Perusrakenne   -->
-  <!-- header         -->
-  <!-- section  aside -->
   <div class="divheaderi">
 
     <section>
@@ -59,14 +56,7 @@
               $bytes = file_put_contents("wanha2.json", $get_data2); 
             }
     
-            //$joku=isset($get_data);
-            //$joku2=isset($get_data2);
-            //echo("<script>console.log($joku);</script>");
-            //echo("<script>console.log($joku2);</script>");
-            //echo("<script>console.log($get_data);</script>");
-            //echo("<script>console.log($get_data2);</script>");
-            //echo "ccc" .$get_data. "ccc";
-
+            // muutetaan JSON-muotoinen data PHP-objektiksi
             $response = json_decode($get_data, true);
             $response2 = json_decode($get_data2, true);
 
@@ -977,12 +967,16 @@ console.log(haraHaettu);
    //console.log("piiloriviä", pituus, "harajärj", harajarj);
 
    kayt = 0;
+   hkayt = 0;
+   okayt = 0;
    for (k = 0; k < pituus; k++) {
 
       kayt = 0;
+      hkayt = 0;
+      okayt = 0;
       for (i = 0; i < 13; i++) {
 
-        console.log("aput, aputw hara", i, aputaulu[i], aputauluw[i], k, kayt, haraHaettu[k][kayt]);
+        console.log("aput, aputw hara hkayt okayt", i, aputaulu[i], aputauluw[i], k, kayt, haraHaettu[k][kayt], hkayt, okayt);
 
         // osittain ja täysin vaihdellut
         // osittain: laitetaan merkki haravasysteemin antaman vasen/oikea -tiedon mukaisesti
@@ -990,17 +984,25 @@ console.log(haraHaettu);
         if (aputaulu[i] == 't' || aputaulu[i] == 'o') {
 
           if (aputaulu[i] == 't') {
-              riviJSON = riviJSON + haraHaettu[k][kayt];
+              // alkupositio haravasysteemin mukaan
+              alkupos = 0;
+              if (harajarj == "pt3_4_4_10") { alkupos = 4;}
+              if (harajarj == "pt3_9_1_12") { alkupos = 9;}
+              if (harajarj == "pt3_6_3_12") { alkupos = 6;}
+              riviJSON = riviJSON + haraHaettu[k][hkayt+alkupos];
+              console.log("täysxxx harahaettu", k,hkayt,haraHaettu[k][hkayt+alkupos]);
+              hkayt++;
           }
 
           if (aputaulu[i] == 'o') {
-              wo = haraHaettu[k][kayt];
+              wo = haraHaettu[k][okayt];
               if (wo == "w") {
                 riviJSON = riviJSON + aputauluw[i].charAt(0); //ensimmäinen eli vas.puol. merkki
               }
               if (wo == "o") {
                 riviJSON = riviJSON + aputauluw[i].charAt(aputauluw[i].length - 1); //viim. eli oik.puol.
               }
+              okayt++;
           }
 
           kayt = kayt + 1;
