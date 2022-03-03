@@ -34,7 +34,7 @@
 
           <select name="pelilista" class="pelilista" id="pelilista" required style="width: 150px">
             <?php
-              $result = mysqli_query($yhteys, "SELECT distinct id, tunnus FROM pelit where tunnus like 'vko%' order by tunnus desc");
+              $result = mysqli_query($yhteys, "SELECT distinct tunnus FROM pelit where tunnus like 'vko%' order by tunnus desc");
             ?>
 
             <option value="">Valitse peli</option>
@@ -80,6 +80,7 @@
               if(isset($_POST['submit'])) {
                 if(!empty($_POST['pelilista'])) {
                     $valittu = $_POST['pelilista'];
+                    echo "pelilista:". $_POST['pelilista'];
                     if ($valittu == "" || $valittu == 0) {
                         $valittu = "20"; // Akaa
                     }

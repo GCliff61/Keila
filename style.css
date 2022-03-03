@@ -787,7 +787,7 @@ form .submit-rating:active {
 /* APPLYING MEDIA QUERIES */
 
 
-@media (min-width: 769px) {
+@media (min-width: 600px) {
 	.headeri,
 	.main-nav {
 		display: flex;
