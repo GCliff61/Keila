@@ -256,8 +256,10 @@
           $kpl = 0;
           for ($j=0;$j<13;$j++) {
             //echo $valitaulu[$j] . "/" . $valitaulu2[$j];
-            if ( $valitaulu[$j] == $valitaulu2[$j] ) {
-              $kpl = $kpl + 1;
+            if (isset($valitaulu2[$j]) ) {
+              if ( $valitaulu[$j] == $valitaulu2[$j] ) {
+                $kpl = $kpl + 1;
+              }
             }
           }
           $oikein[$kpl] = $oikein[$kpl] + 1;
