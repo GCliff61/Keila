@@ -32,8 +32,8 @@
 
           <?php
 
-            $get_data = callAPI('GET', 'https://www.veikkaus.fi/api/sport-popularity/v1/games/SPORT/draws/100335/popularity', false);
-            $get_data2 = callAPI('GET', 'https://www.veikkaus.fi/api/sport-open-games/v1/games/SPORT/draws/100335', false);
+            $get_data = callAPI('GET', 'https://www.veikkaus.fi/api/sport-popularity/v1/games/SPORT/draws/100337/popularity', false);
+            $get_data2 = callAPI('GET', 'https://www.veikkaus.fi/api/sport-open-games/v1/games/SPORT/draws/100337', false);
 
             // Tutkitaan tässä, onko tuore peliprosentti-data saatavilla.
             if (strpos($get_data,"timestamp") > 0) {
